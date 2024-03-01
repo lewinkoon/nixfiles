@@ -13,23 +13,46 @@
     curl
     google-chrome
     hugo
-    vscodium
+    vscode
   ];
+
+  environment.shells = [ pkgs.zsh ];
 
   # setup neovim editor
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 
+  # setup source control
+  programs.git.enable = true;
+  programs.git.config.user.name = "lewin";
+  programs.git.config.user.email = "lewinkoon+github@gmail.com";
+  programs.git.config.init.defaultBranch = "main";
+
+
   # setup shell
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
+  programs.zsh.autosuggestions.enable = true;
   programs.zsh.enableLsColors = true;
+  programs.zsh.syntaxHighlighting.enable = true;
   programs.thefuck.enable = true;
   programs.starship.enable = true;
   programs.gnome-terminal.enable = true;
 
+  # setup desktop manager
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.xterm.enable = false;
+
+  environment.gnome.excludePackages = [
+    pkgs.gnome.epiphany
+    pkgs.gnome.simple-scan
+    pkgs.gnome.seahorse
+    pkgs.gnome-connections
+    pkgs.gnome.yelp
+  ];
 
   # define a user account
+  users.defaultUserShell = pkgs.zsh;
   users.users.lewin = {
     isNormalUser = true;
     description = "Lewin";
@@ -80,14 +103,13 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "lewin";
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
-  # setup desktop manager
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.desktopManager.xterm.enable = false;
 
   # configure keymap in X11
-  services.xserver.layout = "es";
-  services.xserver.xkbVariant = "";
+  services.xserver.xkb.layout = "es";
+  services.xserver.xkb.variant = "";
 
   # configure console keymap
   console.keyMap = "es";
