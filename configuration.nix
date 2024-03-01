@@ -37,18 +37,20 @@
   programs.zsh.syntaxHighlighting.enable = true;
   programs.thefuck.enable = true;
   programs.starship.enable = true;
-  programs.gnome-terminal.enable = true;
 
   # setup desktop manager
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
   environment.gnome.excludePackages = [
     pkgs.gnome.epiphany
     pkgs.gnome.simple-scan
     pkgs.gnome.seahorse
-    pkgs.gnome-connections
     pkgs.gnome.yelp
+    pkgs.gnome.gnome-terminal
+    pkgs.gnome-connections
+    pkgs.gnome-tour
   ];
 
   # define a user account
