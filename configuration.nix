@@ -10,10 +10,24 @@
 
   # list packages installed in system profile
   environment.systemPackages = with pkgs; [
-    vim
     curl
     google-chrome
+    hugo
+    vscodium
   ];
+
+  # setup neovim editor
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
+
+  # setup shell
+  programs.zsh.enable = true;
+  programs.zsh.enableCompletion = true;
+  programs.zsh.enableLsColors = true;
+  programs.thefuck.enable = true;
+  programs.starship.enable = true;
+  programs.gnome-terminal.enable = true;
+
 
   # define a user account
   users.users.lewin = {
@@ -62,19 +76,18 @@
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
 
-  # enable the gnome desktop environment
+  # setup display manager
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "lewin";
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+
+  # setup desktop manager
   services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.xterm.enable = false;
 
   # configure keymap in X11
-  services.xserver = {
-    layout = "es";
-    xkbVariant = "";
-  };
+  services.xserver.layout = "es";
+  services.xserver.xkbVariant = "";
 
   # configure console keymap
   console.keyMap = "es";
