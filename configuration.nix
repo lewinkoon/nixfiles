@@ -13,6 +13,7 @@
     curl
     google-chrome
     hugo
+    obsidian
     syncthing
     vscode
   ];
